@@ -8,14 +8,18 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
-config/name="GodotAP"
+config/name="Time is broken again"
 config/description="Archipelago connection handler for Godot.
 See https://github.com/EmilyV99/GodotAP"
-config/version="0.4.1"
-run/main_scene="res://godot_ap/ui/main.tscn"
-config/features=PackedStringArray("4.4", "Mobile")
+config/version="0.1.0"
+run/main_scene="uid://17vv45651lpm"
+config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -24,8 +28,9 @@ Archipelago="*res://godot_ap/autoloads/archipelago.tscn"
 
 [display]
 
-window/size/viewport_width=750
-window/size/viewport_height=400
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
 window/size/extend_to_title=true
 window/size/window_width_override=1152
 window/size/window_height_override=648
@@ -35,6 +40,11 @@ window/stretch/aspect="expand"
 [filesystem]
 
 import/blender/enabled=false
+
+[global_group]
+
+timeup=""
+main=""
 
 [gui]
 

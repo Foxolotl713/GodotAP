@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqc7dvynp0u10"
-path="res://.godot/imported/left_arrow.png-4fee9df349f51a2476d5eadc4832c437.ctex"
+uid="uid://cn573oomoem55"
+path="res://.godot/imported/Timeup.png-6f1a6db27a07cb60cd34f34d1aef1acb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://godot_ap/ui/themes/graphics/left_arrow.png"
-dest_files=["res://.godot/imported/left_arrow.png-4fee9df349f51a2476d5eadc4832c437.ctex"]
+source_file="res://Timeup.png"
+dest_files=["res://.godot/imported/Timeup.png-6f1a6db27a07cb60cd34f34d1aef1acb.ctex"]
 
 [params]
 

@@ -12,7 +12,7 @@ Running the project itself will produce just the basic console, designed as an a
   - Run `/disconnect` to exit a slot
 - Use like a standard TextClient
   - Has autofill for all its own `/` commands, and some server `!` commands
-    - This includes item/location name filling for '!hint' / '!hint_location'
+	- This includes item/location name filling for '!hint' / '!hint_location'
   - Has a `Hints` tab.
     - LClick a column header to sort by that column (ties remain in previous order)
     - LClick the currently sorted-by column to invert its sort direction

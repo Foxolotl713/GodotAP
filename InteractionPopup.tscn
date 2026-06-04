@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bdle6i4g2fcg0"]
+
+[ext_resource type="Script" uid="uid://bhqtwrr5mssxi" path="res://interaction_popup.gd" id="1_u3xke"]
+
+[node name="Control" type="RichTextLabel" unique_id=653233236]
+custom_minimum_size = Vector2(1920, 1080)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 69
+text = "The Old man told you that you're stuck in a timeloop and that there's not much time left."
+script = ExtResource("1_u3xke")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1947244119]
+z_index = -1
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.3019608, 0.3019608, 0.3019608, 1)
+
+[node name="Button" type="Button" parent="." unique_id=1315066235]
+z_index = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -147.5
+offset_top = -120.0
+offset_right = 147.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 69
+text = "Continue"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
