@@ -2,7 +2,7 @@ extends RichTextLabel
 
 var speed=0.5
 
-signal clicked(text)
+signal clicked()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -19,5 +19,5 @@ func _on_visibility_changed() -> void:
 
 
 func _on_button_pressed() -> void:
-	clicked.emit(text)
+	clicked.emit()
 	self.queue_free()

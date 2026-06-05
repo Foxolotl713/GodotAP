@@ -15,9 +15,8 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Time is broken again"
-config/description="Archipelago connection handler for Godot.
-See https://github.com/EmilyV99/GodotAP"
-config/version="0.1.0"
+config/description="Short UI-based Adventure game about escaping from a time loop. currently only playable with the Archipelago Multiworld Randomizer."
+config/version="1.0.0"
 run/main_scene="uid://17vv45651lpm"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"

@@ -28,20 +28,22 @@ var locationIDs= {
 }
 
 var Texts={
-	"Old Man 1":"The Old man told you that you're stuck in a timeloop and that there's not much time left.",
+	"Old Man 1":"The Old man told you that you're stuck in a timeloop and that there's not much time left. There's only enough time to do one thing every iteration.",
 	"Old Man 2":"He told you to collect 10 time crystals to fix the time generator",
 	"Old Man 3":"He told you that you are not stuck alone but that you are the only one who can move around without immediately resetting.",
 	"Old Man 4":"He told you that not everything resets at the end of the day. For example, it matters where you sleep. Memories also persist.",
 	"Dog 1":"A corgi is sitting in his little house. It looks quite hungry.",
 	"Dog 2":"You feed the corgi and teach it to sit. It looks a lot happier",
 	"Dog 3":"You feed th corgi again and teach it to roll over. It looks like it's having the time of its life.",
-	"Home":"You sleep in the bed and feel anchored.",
+	"Home":"You go to sleep and feel anchored.",
+	"Scrub":"There is a scrub in the way. Maybe it could be cut down?",
 	"FovUp":"It's a small bottle with a strange liquid inside. When you drink it, you feel like you can see further than ever before.",
-	"TimeUp":"It's a can of white monster. After drinking it you feel like you can and must do more stuff before passing out.",
+	"TimeUp":"It's a can of white monster. After drinking it you feel like you can run around longer before passing out.",
 	"Machete":"It's a machete! Luckily it didn't hit you, it looks like it's great at cutting.",
 	"Machete Manual":"It's a manual for a machete! With this, anyone could learn to use a machete efficiently.",
 	"Dog Food":"It's a pack of quality dog food. 'Make your pet happy with snacky!'",
 	"Dust":"It's just a bit of dust.",
+	"TimeCrystal":"It's a mysterious crystal that seems to be pulsating with energy.",
 	"Goal":"You place the time crystals into their box. Immediately, the machine starts shaking and vanishes, taking the box with it.",
 	"NotGoal":"The Machine in the shed seems to need more fuel in the form of time crystals, at least that's what the label on the box next to it says. You dont think you have enough to power such a big thing."
 }
@@ -77,67 +79,73 @@ func _on_button_pressed(index):
 				if not machetemanual:
 					time(1)
 		"House":
-			popup("Home", false)
+			popup("Home", false, 1)
 			spawnx=0
 			spawny=0
 			Archipelago.collect_location(locationIDs["House 1"])
 		"House ":
-			popup("Home", false)
+			popup("Home", false, 1)
 			spawnx=4
 			spawny=0
 			Archipelago.collect_location(locationIDs["House 2"])
 		"House  ":
-			popup("Home", false)
+			popup("Home", false, 1)
 			spawnx=2
 			spawny=5
 			Archipelago.collect_location(locationIDs["House 3"])
 		"House   ":
-			popup("Home", false)
+			popup("Home", false, 1)
 			spawnx=6
 			spawny=7
 			Archipelago.collect_location(locationIDs["House 4"])
 		"Old Man":
 			time(1)
 			if oldmanchecks==0:
-				popup("Old Man 1", false)
+				popup("Old Man 1", false, 1)
 				Archipelago.collect_location(locationIDs["Old Man 1"])
 				oldmanchecks+=1
 			elif oldmanchecks==1:
-				popup("Old Man 2", false)
+				popup("Old Man 2", false, 1)
 				Archipelago.collect_location(locationIDs["Old Man 2"])
 				oldmanchecks+=1
 			elif oldmanchecks==2:
-				popup("Old Man 3", false)
+				popup("Old Man 3", false, 1)
 				Archipelago.collect_location(locationIDs["Old Man 3"])
 				oldmanchecks+=1
 			elif oldmanchecks==3:
-				popup("Old Man 4", false)
+				popup("Old Man 4", false, 1)
 				Archipelago.collect_location(locationIDs["Old Man 4"])
 				oldmanchecks+=1
 		"Dog":
-			if dogchecks==0:
-				popup("Dog 1", false)
-				Archipelago.collect_location(locationIDs["Dog 1"])
-				dogchecks+=1
-			elif dogfood:
-				if dogchecks==1:
-					popup("Dog 2", false)
-					Archipelago.collect_location(locationIDs["Dog 2"])
+			if World[index-worldx]!="Scrub":
+				if dogchecks==0:
+					popup("Dog 1", false, 1)
+					Archipelago.collect_location(locationIDs["Dog 1"])
 					dogchecks+=1
-				elif dogchecks==2:
-					popup("Dog 3", false)
-					Archipelago.collect_location(locationIDs["Dog 3"])
-					dogchecks+=1
-			popup("Home", false)
-			spawnx=0
-			spawny=5
-			reset()
+				elif dogfood:
+					if dogchecks==1:
+						popup("Dog 2", false, 1)
+						Archipelago.collect_location(locationIDs["Dog 2"])
+						dogchecks+=1
+					elif dogchecks==2:
+						popup("Dog 3", false, 1)
+						Archipelago.collect_location(locationIDs["Dog 3"])
+						dogchecks+=1
+					else:
+						popup("Home", false, 1)
+				else:
+					popup("Dog 1", false, 1)
+					
+				spawnx=0
+				spawny=5
+			else:
+				popup("Scrub", false, 1)
 		"Shed":
 			if timecrystals>=10:
-				popup("Goal", false)
+				popup("Goal", false, 1)
 				Archipelago.set_client_status(AP.ClientStatus.CLIENT_GOAL)
 			else:
-				popup("NotGoal", false)
+				popup("NotGoal", false, 1)
 		_:
 			pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -196,9 +204,6 @@ func increase_fov(amount:int):
 		for child in $GridContainer.get_children():
 			child.queue_free()
 
-func increase_turns(amount:int):
-	turns+=amount
-
 func time(duration: int):
 	turnsleft-=duration
 	if turnsleft<=0:
@@ -206,24 +211,24 @@ func time(duration: int):
 	$Label.text="Time left: "+str(turnsleft)
 	
 func reset():
-	camx=spawnx
-	camy=spawny
-	turnsleft=turns
-	$Label.text="Time left: "+str(turnsleft)
-	for child in $GridContainer.get_children():
-		child.queue_free()
-	$TextureRect.visible=false
-	for item in item_queue:
-		popup(item, true)
-	item_queue.clear()
-	
+	if item_queue.size()==0:
+		for child in $GridContainer.get_children():
+			child.queue_free()
+		$TextureRect.visible=false
+		item_queue.clear()
+		camx=spawnx
+		camy=spawny
+		turnsleft=turns
+		$Label.text="Time left: "+str(turnsleft)
+	else:
+		popup(item_queue.pop_front(), true, 2)
 
-func popup(key: String, item: bool):
+func popup(key: String, item: bool, z: int):
 	var popupscene=preload("res://InteractionPopup.tscn")
 	@warning_ignore("shadowed_variable")
 	var popup=popupscene.instantiate()
 	popup.visible=true
-	popup.z_index=5
+	popup.z_index=z
 	var text=""
 	if item:
 		text="Something drops out of a weird portal looking thing that immediately closes. It feels like time is slowing down and speeding up at the same time.\n"
@@ -241,7 +246,15 @@ func handleItem(item: String):
 		"FovUp":
 			increase_fov(1)
 		"TimeUp":
-			increase_turns(1)
+			turns+=1
+		"Dog Food":
+			dogfood=true
+		"Machete":
+			machete=true
+		"Machete Manual":
+			machetemanual=true
+		"Time Crystal":
+			timecrystals+=1
 		_:
 			pass
 
@@ -257,6 +270,5 @@ func connected(connection_info, json):
 	conn.obtained_item.connect(queueItem, 1)
 	print(json)
 
-func handleClick(text):
-	if text=="You sleep in the bed and feel anchored.":
-		reset()
+func handleClick():
+	reset()
