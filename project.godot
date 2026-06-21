@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Time is broken again"
 config/description="Short UI-based Adventure game about escaping from a time loop. currently only playable with the Archipelago Multiworld Randomizer."
-config/version="1.0.0"
+config/version="1.1.2"
 run/main_scene="uid://cydq5436gijtt"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"

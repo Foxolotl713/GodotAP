@@ -5,12 +5,7 @@
 [node name="WindowContainer" unique_id=1108226187 instance=ExtResource("1_i7ay1")]
 
 [node name="Tabs" parent="." index="0" unique_id=1340644268]
-current_tab = 2
 all_tabs_in_front = true
 
-[node name="Console" parent="Tabs" index="1" unique_id=1147250303]
-visible = false
-
 [node name="World" parent="Tabs" index="3" unique_id=1042698934]
-visible = true
 z_index = 1
