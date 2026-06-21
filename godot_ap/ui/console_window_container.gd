@@ -3,6 +3,7 @@
 @onready var tabs: TabContainer = $Tabs
 @onready var console_tab: Control = $Tabs/Console
 @onready var hints_tab: Control = $Tabs/Hints
+@onready var world_tab: Control = $Tabs/World
 @onready var console_container: ConsoleContainer = $Tabs/Console/Console
 @onready var console_margin: MarginContainer = console_container.margin
 @onready var console: BaseConsole = console_container.console
@@ -15,6 +16,10 @@
 @export var hide_hints_tab := false :
 	set(val):
 		hide_hints_tab = val
+		refresh_hidden()
+@export var hide_world_tab := false:
+	set(val):
+		hide_world_tab = val
 		refresh_hidden()
 
 func recount() -> int: ## Returns the number of visible tabs, and sets the tabbar's visibility.
@@ -30,6 +35,7 @@ func refresh_hidden() -> void:
 	if not is_node_ready(): return
 	tabs.set_tab_hidden(tabs.get_tab_idx_from_control(console_tab), hide_console_tab)
 	tabs.set_tab_hidden(tabs.get_tab_idx_from_control(hints_tab), hide_hints_tab)
+	tabs.set_tab_hidden(tabs.get_tab_idx_from_control(world_tab), hide_world_tab)
 	while tabs.is_tab_hidden(tabs.get_tab_idx_from_control(tabs.get_current_tab_control())):
 		tabs.select_next_available()
 	recount()
@@ -54,6 +60,7 @@ func _ready() -> void:
 		if w > right_bar_w:
 			right_bar_w = w
 	console_margin.add_theme_constant_override("margin_right", 8+ceili(right_bar_w / 2))
+	Archipelago.load_console(self, false)
 
 func close() -> void:
 	get_window().close_requested.emit()

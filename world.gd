@@ -1,16 +1,16 @@
-extends Control
+extends MarginContainer
 
 var World=[
-	"Rock","Rock","Rock","Rock","Rock","Rock","Rock","Rock","Rock","Rock",
-	"Rock","House","Grass","Grass","Grass","House ","Grass","Grass","Grass","Rock",
-	"Rock","Grass","Grass","Grass","Grass","Grass","Grass","Grass","Grass","Rock",
-	"Rock","Grass","Grass","Old Man","Grass","Grass","Grass","Grass","Grass","Rock",
-	"Rock","Grass","Grass","Grass","Grass","Grass","Grass","Grass","Grass","Rock",
-	"Rock","Scrub","Rock","Grass","Grass","Grass","Grass","Grass","Grass","Rock",
-	"Rock","Dog","Rock","House  ","Grass","Grass","Grass","Grass","Grass","Rock",
-	"Rock","Rock","Rock","Grass","Grass","Grass","Grass","Grass","Grass","Rock",
-	"Rock","Grass","Grass","Grass","Grass","Grass","Grass","House   ","Grass","Rock",
-	"Rock","Rock","Rock","Rock","Rock","Rock","Rock","Rock","Rock","Shed"
+	"Rock","Rock","Rock","Rock","Rock","Rock","Rock","Rock","Rock","Rock","Rock","Rock",
+	"Rock","House","Grass","Grass","Grass","House ","Grass","Grass","Grass","Grass","Grass","Rock",
+	"Rock","Grass","Grass","Grass","Grass","Grass","Grass","Grass","Grass","Rock","Rock","Rock",
+	"Rock","Grass","Grass","Old Man","Grass","Grass","Grass","Grass","House    ","Scrub","Dog ","Rock", 
+	"Rock","Grass","Grass","Grass","Grass","Grass","Grass","Grass","Grass","Rock","Rock","Rock",
+	"Rock","Scrub","Rock","Grass","Grass","Grass","Grass","Grass","Grass","Grass","Grass","Rock",
+	"Rock","Dog","Rock","House  ","Grass","Grass","Grass","Grass","Grass","Grass","Grass","Rock",
+	"Rock","Rock","Rock","Grass","Grass","Grass","Grass","Grass","Grass","Grass","Grass","Rock",
+	"Rock","Grass","Grass","Grass","Grass","Grass","Grass","House   ","Grass","Grass","Grass","Rock",
+	"Rock","Rock","Rock","Rock","Rock","Rock","Rock","Rock","Rock","Rock","Rock","Shed"
 ]
 
 var locationIDs= {
@@ -22,9 +22,14 @@ var locationIDs= {
 	"House 2": 22,
 	"House 3": 23,
 	"House 4": 24,
-	"Dog 1": 31,
-	"Dog 2": 32,
-	"Dog 3": 33,
+	"House 5": 25,
+	"Dog 1 - 1": 31,
+	"Dog 1 - 2": 32,
+	"Dog 1 - 3": 33,
+	"Dog 2 - 1": 34,
+	"Dog 2 - 2": 35,
+	"Dog 2 - 3": 36,
+	"Dog 2 - 4": 37
 }
 
 var Texts={
@@ -34,7 +39,8 @@ var Texts={
 	"Old Man 4":"He told you that not everything resets at the end of the day. For example, it matters where you sleep. Memories also persist.",
 	"Dog 1":"A corgi is sitting in his little house. It looks quite hungry.",
 	"Dog 2":"You feed the corgi and teach it to sit. It looks a lot happier",
-	"Dog 3":"You feed th corgi again and teach it to roll over. It looks like it's having the time of its life.",
+	"Dog 3":"You feed the corgi again and teach it to roll over. It looks like it's having the time of its life.",
+	"Dog 12":"You spot a collar around the corgis neck with a name tag that says 'Rex'. You pet the corgi and it looks a bit happier.",
 	"Home":"You go to sleep and feel anchored.",
 	"Scrub":"There is a scrub in the way. Maybe it could be cut down?",
 	"FovUp":"It's a small bottle with a strange liquid inside. When you drink it, you feel like you can see further than ever before.",
@@ -44,11 +50,12 @@ var Texts={
 	"Dog Food":"It's a pack of quality dog food. 'Make your pet happy with snacky!'",
 	"Dust":"It's just a bit of dust.",
 	"TimeCrystal":"It's a mysterious crystal that seems to be pulsating with energy.",
-	"Goal":"You place the time crystals into their box. Immediately, the machine starts shaking and vanishes, taking the box with it.",
-	"NotGoal":"The Machine in the shed seems to need more fuel in the form of time crystals, at least that's what the label on the box next to it says. You dont think you have enough to power such a big thing."
+	"Goal":"You place the time crystals into their box. Immediately, the machine starts shaking and vanishes, taking the box with it. \nSuddenly you feel time shift until everything is back to normal.",
+	"NotGoal":"The Machine in the shed seems to need more fuel in the form of time crystals, at least that's what the label on the box next to it says. You dont think you have enough to power such a big thing.",
+	"NotGoalDog":"As you approach the machine to place the time crystals in, you think of the corgis and how sad they looked and feel like you should take care of them before worrying about the machine."
 }
 
-var worldx=10
+var worldx=12
 var worldy=10
 var camx=0
 var camy=0
@@ -59,12 +66,14 @@ var turns=3
 var turnsleft=turns
 var item_queue=[]
 var conn
+var slot_data
 var timecrystals=0
 var machete=false
 var machetemanual=false
 var dogfood=false
 var oldmanchecks=0
 var dogchecks=0
+var dogchecks2=0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$GridContainer.columns=fov
@@ -76,8 +85,9 @@ func _on_button_pressed(index):
 		"Scrub":
 			if machete:
 				World[index]="Grass"
-				if not machetemanual:
-					time(1)
+				time(1)
+				for child in $GridContainer.get_children():
+					child.queue_free()
 		"House":
 			popup("Home", false, 1)
 			spawnx=0
@@ -98,6 +108,11 @@ func _on_button_pressed(index):
 			spawnx=6
 			spawny=7
 			Archipelago.collect_location(locationIDs["House 4"])
+		"House    ":
+			popup("Home", false, 1)
+			spawnx=7
+			spawny=2
+			Archipelago.collect_location(locationIDs["House 5"])
 		"Old Man":
 			time(1)
 			if oldmanchecks==0:
@@ -120,16 +135,16 @@ func _on_button_pressed(index):
 			if World[index-worldx]!="Scrub":
 				if dogchecks==0:
 					popup("Dog 1", false, 1)
-					Archipelago.collect_location(locationIDs["Dog 1"])
+					Archipelago.collect_location(locationIDs["Dog 1 - 1"])
 					dogchecks+=1
 				elif dogfood:
 					if dogchecks==1:
 						popup("Dog 2", false, 1)
-						Archipelago.collect_location(locationIDs["Dog 2"])
+						Archipelago.collect_location(locationIDs["Dog 1 - 2"])
 						dogchecks+=1
 					elif dogchecks==2:
 						popup("Dog 3", false, 1)
-						Archipelago.collect_location(locationIDs["Dog 3"])
+						Archipelago.collect_location(locationIDs["Dog 1 - 3"])
 						dogchecks+=1
 					else:
 						popup("Home", false, 1)
@@ -140,12 +155,43 @@ func _on_button_pressed(index):
 				spawny=5
 			else:
 				popup("Scrub", false, 1)
+		"Dog ":
+			if World[index-1]!="Scrub":
+				if dogchecks2==0:
+					popup("Dog 1", false, 1)
+					Archipelago.collect_location(locationIDs["Dog 2 - 1"])
+					dogchecks2+=1
+				elif dogchecks2==1:
+					popup("Dog 12", false, 1)
+					Archipelago.collect_location(locationIDs["Dog 2 - 2"])
+					dogchecks2+=1
+				elif dogfood:
+					if dogchecks2==2:
+						popup("Dog 2", false, 1)
+						Archipelago.collect_location(locationIDs["Dog 2 - 3"])
+						dogchecks2+=1
+					elif dogchecks2==3:
+						popup("Dog 3", false, 1)
+						Archipelago.collect_location(locationIDs["Dog 2 - 4"])
+						dogchecks2+=1
+					else:
+						popup("Home", false, 1)
+				else:
+					popup("Dog 11", false, 1)
+					
+				spawnx=9
+				spawny=2
+			else:
+				popup("Scrub", false, 1)
 		"Shed":
-			if timecrystals>=10:
+			if timecrystals>=slot_data["time_crystals_required_for_goal"]&&((dogchecks==3&&dogchecks2==4)||slot_data["dog_goal"]==0):
 				popup("Goal", false, 1)
 				Archipelago.set_client_status(AP.ClientStatus.CLIENT_GOAL)
 			else:
-				popup("NotGoal", false, 1)
+				if timecrystals<slot_data["time_crystals_required_for_goal"]:
+					popup("NotGoal", false, 1)
+				else:
+					popup("NotGoalDog", false, 1)
 		_:
 			pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -160,6 +206,8 @@ func _process(_delta: float) -> void:
 				button.pressed.connect(_on_button_pressed.bind(i + camx + worldx * (j + camy)))
 
 func move(direction):
+	if self.visible==false:
+		return
 	match direction:
 		"right":
 			if camx+fov<worldx:
@@ -253,7 +301,7 @@ func handleItem(item: String):
 			machete=true
 		"Machete Manual":
 			machetemanual=true
-		"Time Crystal":
+		"TimeCrystal":
 			timecrystals+=1
 		_:
 			pass
@@ -262,13 +310,14 @@ func queueItem(item):
 	@warning_ignore("shadowed_variable_base_class")
 	var name = item.get_name()
 	item_queue.append(name)
-	print(name)
 
-func connected(connection_info, json):
-	print(connection_info)
+func connected(connection_info, _json):
 	conn=connection_info
 	conn.obtained_item.connect(queueItem, 1)
-	print(json)
+	slot_data=conn.slot_data
 
 func handleClick():
 	reset()
+
+func quit():
+	get_tree().quit(0)

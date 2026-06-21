@@ -102,12 +102,14 @@ func _focus():
 	if disabled or not visible: return _unfocus()
 	if not had_focus:
 		had_focus = true
+		print(had_focus)
 		update()
 		queue_redraw()
 func _unfocus():
 	if Engine.is_editor_hint(): return
 	if had_focus:
 		had_focus = false
+		print(had_focus)
 		update()
 		queue_redraw()
 

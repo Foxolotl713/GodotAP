@@ -5,46 +5,40 @@
 
 [sub_resource type="Theme" id="Theme_f3sb7"]
 
-[node name="World" type="Control" unique_id=1042698934 groups=["main"]]
-layout_mode = 3
+[node name="World" type="MarginContainer" unique_id=1337408416 groups=["main"]]
+custom_minimum_size = Vector2(1920, 1080)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = SubResource("Theme_f3sb7")
 script = ExtResource("1_f3sb7")
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=1180772724]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-columns = 5
+z_index = -1
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 2
+columns = 3
 
 [node name="TextureRect" type="Button" parent="." unique_id=819131743 groups=["timeup"]]
 visible = false
-z_index = 1
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1082.0
+layout_mode = 2
 icon = ExtResource("2_fj7yv")
 
 [node name="Label" type="Label" parent="." unique_id=1416401604]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 35.0
+z_index = -1
+layout_mode = 2
 theme_override_font_sizes/font_size = 56
 text = "Time left: 3"
+
+[node name="Button" type="Button" parent="." unique_id=214932203]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 69
+text = "Quit Game"
 
 [connection signal="pressed" from="TextureRect" to="." method="reset"]
