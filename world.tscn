@@ -2,11 +2,12 @@
 
 [ext_resource type="Script" uid="uid://n1qf8kwa2ok0" path="res://world.gd" id="1_f3sb7"]
 [ext_resource type="Texture2D" uid="uid://cn573oomoem55" path="res://Timeup.png" id="2_fj7yv"]
+[ext_resource type="Script" uid="uid://imxv6ifw34jq" path="res://button.gd" id="3_tlwt5"]
 
 [sub_resource type="Theme" id="Theme_f3sb7"]
 
-[node name="World" type="MarginContainer" unique_id=1337408416 groups=["main"]]
-custom_minimum_size = Vector2(1920, 1080)
+[node name="World" type="MarginContainer" unique_id=1337408416 groups=["all", "main"]]
+custom_minimum_size = Vector2(1920, 1021.6)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -17,28 +18,29 @@ size_flags_vertical = 3
 theme = SubResource("Theme_f3sb7")
 script = ExtResource("1_f3sb7")
 
-[node name="GridContainer" type="GridContainer" parent="." unique_id=1180772724]
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1180772724 groups=["all"]]
 z_index = -1
-custom_minimum_size = Vector2(1920, 1080)
+custom_minimum_size = Vector2(1920, 1019.93)
 layout_mode = 2
 columns = 3
 
-[node name="TextureRect" type="Button" parent="." unique_id=819131743 groups=["timeup"]]
+[node name="TextureRect" type="Button" parent="." unique_id=819131743 groups=["all", "timeup"]]
 visible = false
 layout_mode = 2
 icon = ExtResource("2_fj7yv")
 
-[node name="Label" type="Label" parent="." unique_id=1416401604]
+[node name="Label" type="Label" parent="." unique_id=1416401604 groups=["all"]]
 z_index = -1
 layout_mode = 2
 theme_override_font_sizes/font_size = 56
 text = "Time left: 3"
 
-[node name="Button" type="Button" parent="." unique_id=214932203]
+[node name="Button" type="Button" parent="." unique_id=214932203 groups=["all"]]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 69
 text = "Quit Game"
+script = ExtResource("3_tlwt5")
 
 [connection signal="pressed" from="TextureRect" to="." method="reset"]

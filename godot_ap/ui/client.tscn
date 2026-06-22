@@ -2,10 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://cgq7n1figlpu3" path="res://godot_ap/ui/base_client.tscn" id="1_i7ay1"]
 
-[node name="WindowContainer" unique_id=1108226187 instance=ExtResource("1_i7ay1")]
+[node name="WindowContainer" unique_id=1108226187 groups=["all"] instance=ExtResource("1_i7ay1")]
 
-[node name="Tabs" parent="." index="0" unique_id=1340644268]
+[node name="Tabs" parent="." index="0" unique_id=1340644268 groups=["all"]]
 all_tabs_in_front = true
+
+[node name="Console" parent="Tabs" index="1" unique_id=1147250303 groups=["all"]]
+
+[node name="Hints" parent="Tabs" index="2" unique_id=1574649885 groups=["all"]]
 
 [node name="World" parent="Tabs" index="3" unique_id=1042698934]
 z_index = 1

@@ -78,6 +78,7 @@ var dogchecks2=0
 func _ready() -> void:
 	$GridContainer.columns=fov
 	Archipelago.connected.connect(connected, 2)
+	Archipelago.disconnected.connect(disconnected, 0)
 
 func _on_button_pressed(index):
 	var text = World[index]
@@ -316,8 +317,18 @@ func connected(connection_info, _json):
 	conn.obtained_item.connect(queueItem, 1)
 	slot_data=conn.slot_data
 
+func disconnected():
+	machete=false
+	machetemanual=false
+	dogfood=false
+	dogchecks=0
+	dogchecks2=0
+	oldmanchecks=0
+	spawnx=0
+	spawny=0
+	timecrystals=0
+	turns=3
+	item_queue=[]
+
 func handleClick():
 	reset()
-
-func quit():
-	get_tree().quit(0)
