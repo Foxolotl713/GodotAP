@@ -34,7 +34,7 @@ var locationIDs= {
 
 var Texts={
 	"Old Man 1":"The Old man told you that you're stuck in a timeloop and that there's not much time left. There's only enough time to do one thing every iteration.",
-	"Old Man 2":"He told you to collect 10 time crystals to fix the time generator",
+	"Old Man 2":"He told you to collect time crystals to fix the time generator",
 	"Old Man 3":"He told you that you are not stuck alone but that you are the only one who can move around without immediately resetting.",
 	"Old Man 4":"He told you that not everything resets at the end of the day. For example, it matters where you sleep. Memories also persist.",
 	"Dog 1":"A corgi is sitting in his little house. It looks quite hungry.",
@@ -326,6 +326,8 @@ func disconnected():
 	oldmanchecks=0
 	spawnx=0
 	spawny=0
+	camx=0
+	camy=0
 	timecrystals=0
 	turns=3
 	item_queue=[]
