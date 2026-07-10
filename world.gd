@@ -331,6 +331,7 @@ func disconnected():
 	timecrystals=0
 	turns=3
 	item_queue=[]
+	reset()
 
 func handleClick():
 	reset()

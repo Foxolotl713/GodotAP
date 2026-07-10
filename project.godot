@@ -16,9 +16,9 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Time is broken again"
 config/description="Short UI-based Adventure game about escaping from a time loop. currently only playable with the Archipelago Multiworld Randomizer."
-config/version="1.1.2"
+config/version="1.1.3"
 run/main_scene="uid://cydq5436gijtt"
-config/features=PackedStringArray("4.6", "Mobile")
+config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -33,7 +33,7 @@ window/size/mode=3
 window/size/extend_to_title=true
 window/size/window_width_override=1152
 window/size/window_height_override=648
-window/stretch/aspect="expand"
+window/stretch/mode="canvas_items"
 
 [filesystem]
 

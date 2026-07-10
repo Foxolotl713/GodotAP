@@ -7,7 +7,6 @@
 [sub_resource type="Theme" id="Theme_f3sb7"]
 
 [node name="World" type="MarginContainer" unique_id=1337408416 groups=["all", "main"]]
-custom_minimum_size = Vector2(1920, 1021.6)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -20,7 +19,6 @@ script = ExtResource("1_f3sb7")
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=1180772724 groups=["all"]]
 z_index = -1
-custom_minimum_size = Vector2(1920, 1019.93)
 layout_mode = 2
 columns = 3
 

@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://bhqtwrr5mssxi" path="res://interaction_popup.gd" id="1_u3xke"]
 
 [node name="Control" type="RichTextLabel" unique_id=653233236]
-custom_minimum_size = Vector2(1920, 1080)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -15,7 +14,6 @@ script = ExtResource("1_u3xke")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1947244119]
 z_index = -1
-custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
