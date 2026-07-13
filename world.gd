@@ -85,7 +85,7 @@ func _on_button_pressed(index):
 	match text:
 		"Scrub":
 			if machete:
-				World[index]="Grass"
+				World[index]="Grass "
 				time(1)
 				for child in $GridContainer.get_children():
 					child.queue_free()
@@ -331,6 +331,9 @@ func disconnected():
 	timecrystals=0
 	turns=3
 	item_queue=[]
+	for a in range(World.size()):
+		if World[a]=="Grass ":
+			World[a]="Scrub"
 	reset()
 
 func handleClick():
